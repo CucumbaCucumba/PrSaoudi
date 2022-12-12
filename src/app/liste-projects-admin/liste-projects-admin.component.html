@@ -1,0 +1,160 @@
+<div class="container" style="background-color: silver; border: black; border-radius: 1%;" >
+    <p style="text-decoration: none;" routerLink="/projects"><p style=" font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: bolder;font-size: 20pt;">Projects</p>
+    <div style="height: 25px;"></div>
+    <table class="table"  *ngIf="products;else fat7i" style="width: 700px; background-color: white;
+     border-radius: 25px;">
+        <tr>
+            <th>
+                
+                <button (click)=toggleIMG() class="btn btn-primary active" style="border-radius: 25px;">{{nomButt}}</button>
+            </th>
+            <th>
+                id
+            </th>
+            <th>
+                name
+            </th>
+            <th>
+                languages
+            </th>
+            <th>
+                Softwares
+            </th>
+            <th>
+                description
+            </th>
+            <th>
+                image path
+            </th>
+        </tr>
+        <tr *ngFor="let a of productsF">
+            <td>
+                <img *ngIf="nomButt=='masquer'" src="http://localhost:8080/api/Project/img/+{{a.id}}" width="50" height="50">
+            </td>
+            <td>{{a.id}}</td>
+            <td>{{a.name}}</td>
+            <td><p *ngFor="let b of a.lang">{{b.nom}}</p></td>
+            <td><p *ngFor="let b of a.soft">{{b.nom}}</p></td>
+            <td>{{a.description}}</td>
+            <td>{{a.imgagePath}}</td>
+            <td><button (click)=deleteprojById(a.id) class="btn btn-primary active" style="border-radius: 25px;">delete</button></td>
+            <td><a routerLink="/admin/alterProject/{{a.id}}"><button class="btn btn-primary active" style="border-radius: 25px;">alter</button></a></td>
+        </tr>
+    </table>
+    <form [formGroup]="Prod">
+        <div class="form-group">
+    <label for="name" >Name:</label>
+    <input type="text" id="name" class="form-control" formControlName="name"><br>
+        </div>
+    
+    <div class="form-group">
+    <label for="price" >image Path:</label>
+    <input type="text" id="imgpath" class="form-control" formControlName="imgpath"><br>
+    </div>
+    <div class="form-group" style="padding-bottom: 1%;">
+    <label for="quantity" >Description:</label>
+    <input type="text" id="desc" class="form-control" formControlName="desc"><br>
+    </div>
+    </form>
+    <div  style="padding-bottom: 1%;">
+        <label for="Languages" >Languages:</label>
+        <select [(ngModel)]="selectedLang" name="Languages">
+            <option value="" selected></option>
+            <option *ngFor="let l of LangF;let index = index"[value]="index">
+                {{l.nom}}
+            </option>
+        </select>
+    </div>
+    <div  style="padding-bottom: 1%;">
+        <label for="software" >Software:</label>
+        <select  [(ngModel)]="selectedSoft" name="software" required>
+            <option *ngFor="let l of SoftF;let index = index"[value]="index">
+            {{l.nom}}
+            </option>
+        </select>
+    </div>
+    <button class="btn btn-primary active" style="margin-bottom: 1%;;border-radius: 25px;" type="submit" (click)=onSubmitProj()>Submit</button>
+    
+    
+    <ng-template #fat7i><h2 style="color: red;">tableau vide</h2> </ng-template>
+    
+    </div>
+    <div style="height: 30px;">
+    
+    </div>
+    <div class="container" style="background-color: silver; border: black; border-radius: 1%; " >
+        <p style="text-decoration: none;" routerLink="/projects"><p style=" font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: bolder;font-size: 20pt;">Languages</p>
+        <div style="height: 25px;"></div>
+        <table class="table"  *ngIf="products;else fat7i" style="width: 700px; background-color: white;
+         border-radius: 25px;">
+            <tr>
+    
+                <th>
+                    id
+                </th>
+                <th>
+                    name
+                </th>
+            </tr>
+            <tr *ngFor="let a of LangF">
+                <td>
+                </td>
+                <td>{{a.id}}</td>
+                <td>{{a.nom}}</td>
+               
+                <td><button (click)=deletelangById(a.id) class="btn btn-primary active" style="border-radius: 25px;">delete</button></td>
+                <td><a routerLink="/admin/alterLang/{{a.id}}"><button class="btn btn-primary active" style="border-radius: 25px;">alter</button></a></td>
+            </tr>
+        </table>
+        <form [formGroup]="Prod2">
+            <div class="form-group">
+        <label for="name" >Name:</label>
+        <input type="text" id="name" class="form-control" formControlName="name"><br>
+        <button class="btn btn-primary active" style="border-radius: 25px;" type="submit" (click)=onSubmitLang()>Submit</button>
+        </div>
+        
+        </form>
+        
+        <ng-template #fat7i><h2 style="color: red;">tableau vide</h2> </ng-template>
+        
+        </div>
+        <div style="height: 30px;">
+    
+        </div>
+        <div class="container" style="background-color: silver; border: black; border-radius: 1%; " >
+            <p style="text-decoration: none;" routerLink="/projects"><p style=" font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: bolder;font-size: 20pt;">Software</p>
+            <div style="height: 25px;"></div>
+            <table class="table"  *ngIf="products;else fat7i" style="width: 700px; background-color: white;
+             border-radius: 25px;">
+                <tr>
+        
+                    <th>
+                        id
+                    </th>
+                    <th>
+                        name
+                    </th>
+                </tr>
+                <tr *ngFor="let a of SoftF ">
+                    <td>
+                    </td>
+                    <td>{{a.id}}</td>
+                    <td>{{a.nom}}</td>
+                   
+                    <td><button (click)=deletesoftById(a.id) class="btn btn-primary active" style="border-radius: 25px;">delete</button></td>
+                    <td><a routerLink="/admin/alterSoft/{{a.id}}"><button class="btn btn-primary active" style="border-radius: 25px;">alter</button></a></td>
+                </tr>
+            </table>
+            <form [formGroup]="Prod3">
+                <div class="form-group">
+            <label for="name" >Name:</label>
+            <input type="text" id="name" class="form-control" formControlName="name"><br>
+            <button class="btn btn-primary active" style="border-radius: 25px;" type="submit" (click)=onSubmitSoft()>Submit</button>
+            </div>
+            
+            </form>
+            
+            <ng-template #fat7i><h2 style="color: red;">tableau vide</h2> </ng-template>
+            
+            </div>
+    
